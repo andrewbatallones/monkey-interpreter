@@ -6,14 +6,14 @@ const (
 
 	// Identifiers + literals
 	IDENT = "IDENT" // add, fobar, x, y, ...
-	INT = "INT" //  123..
+	INT   = "INT"   //  123..
 
 	// Operators
 	ASSIGN = "="
-	PLUS = "+"
-	
+	PLUS   = "+"
+
 	// Delimiters
-	COMMA = ","
+	COMMA     = ","
 	SEMICOLON = ";"
 
 	LPAREN = "("
@@ -23,7 +23,7 @@ const (
 
 	// Keywords
 	FUNCTION = "FUNCTION"
-	LET = "LET"
+	LET      = "LET"
 )
 
 type TokenType string

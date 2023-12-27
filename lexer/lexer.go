@@ -2,6 +2,8 @@ package lexer
 
 import "github.com/andrewbatallones/monkey_interpreter/token"
 
+// The Lexer
+// The purpose of the Lexer is to convert the input into tokens to be used later.
 type Lexer struct {
 	input        string
 	position     int  // current position in input (points to current char)

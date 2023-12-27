@@ -9,10 +9,7 @@ import (
 func TestNextTokenSymbols(t *testing.T) {
 	input := `=+(){},;`
 
-	tests := []struct {
-		expectedType    token.TokenType
-		expectedLiteral string
-	}{
+	tests := []lexerTest{
 		{token.ASSIGN, "="},
 		{token.PLUS, "+"},
 		{token.LPAREN, "("},
@@ -24,19 +21,7 @@ func TestNextTokenSymbols(t *testing.T) {
 		{token.EOF, ""},
 	}
 
-	l := New(input)
-
-	for i, tt := range tests {
-		tok := l.NextToken()
-
-		if tok.Type != tt.expectedType {
-			t.Fatalf("tests[%d] - tokentype wrong. expected %q, got %q", i, tt.expectedType, tok.Type)
-		}
-
-		if tok.Literal != tt.expectedLiteral {
-			t.Fatalf("tests[%d] - literal wrong. expected %q, got %q", i, tt.expectedLiteral, tok.Literal)
-		}
-	}
+	runTests(input, tests, t)
 }
 
 func TestNextTokenSimple(t *testing.T) {
@@ -57,10 +42,7 @@ if (5 < 10) {
 	return false;
 }`
 
-	tests := []struct {
-		expectedType    token.TokenType
-		expectedLiteral string
-	}{
+	tests := []lexerTest{
 		{token.LET, "let"},
 		{token.IDENT, "five"},
 		{token.ASSIGN, "="},
@@ -127,6 +109,17 @@ if (5 < 10) {
 		{token.RBRACE, "}"},
 		{token.EOF, ""},
 	}
+
+	runTests(input, tests, t)
+}
+
+type lexerTest struct {
+	expectedType    token.TokenType
+	expectedLiteral string
+}
+
+func runTests(input string, tests []lexerTest, t *testing.T) {
+	t.Helper()
 
 	l := New(input)
 

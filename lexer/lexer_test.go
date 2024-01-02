@@ -135,3 +135,22 @@ if (5 < 10) {
 
 	runTests(input, tests, t)
 }
+
+func testTwoCharToken(t *testing.T) {
+	input := `10 == 10;
+10 != 9;
+`
+
+	tests := []lexerTest{
+		{token.INT, "10"},
+		{token.EQ, "=="},
+		{token.INT, "10"},
+		{token.SEMICOLON, ";"},
+		{token.INT, "10"},
+		{token.NO_EQ, "!="},
+		{token.INT, "9"},
+		{token.SEMICOLON, ";"},
+	}
+
+	runTests(input, tests, t)
+}

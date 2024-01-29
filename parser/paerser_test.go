@@ -106,7 +106,7 @@ return 993322;
 			t.Errorf("stmt not *ast.ReturnStatement. got =%T", stmt)
 			continue
 		}
-		
+
 		if returnStmt.TokenLiteral() != "return" {
 			t.Errorf("returnStmt.TokenLiteral not 'return', got %q", returnStmt.TokenLiteral())
 		}

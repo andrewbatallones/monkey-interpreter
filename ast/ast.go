@@ -2,6 +2,7 @@ package ast
 
 import "github.com/andrewbatallones/monkey_interpreter/token"
 
+// The AST - Abstract Syntax Tree
 type Node interface {
 	TokenLiteral() string
 }

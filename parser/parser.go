@@ -8,6 +8,23 @@ import (
 	"github.com/andrewbatallones/monkey_interpreter/token"
 )
 
+// iota will increment the Constants as enums.
+// In this instance, it is ignoring the first value (0) when defining iota.
+// The next couple of constants will range from 1-7.
+// This is important when the parser is trying to see which operation takes precedence.
+// For example PRODUCT > SUM, which means the parser will evaluate the PRODUCT first.
+// More info: https://go.dev/wiki/Iota
+const (
+	_ int = iota
+	LOWEST
+	EQUALS      // ==
+	LESSGREATER // > or <
+	SUM         // +
+	PRODUCT     // *
+	PREFIX      // -X or !X
+	CALL        // myFunction(x)
+)
+
 // These defines function types
 type (
 	prefixParseFn func() ast.Expression
@@ -83,7 +100,7 @@ func (p *Parser) parseStatement() ast.Statement {
 	case token.RETURN:
 		return p.parseReturnStatement()
 	default:
-		return nil
+		return p.parseExpressionStatement()
 	}
 }
 
@@ -118,6 +135,29 @@ func (p *Parser) parseReturnStatement() *ast.ReturnStatement {
 	}
 
 	return stmt
+}
+
+func (p *Parser) parseExpressionStatement() *ast.ExpresssionStatement {
+	stmt := &ast.ExpresssionStatement{Token: p.curToken}
+
+	stmt.Expression = p.parseExpression(LOWEST)
+
+	if p.peekTokenIs(token.SEMICOLON) {
+		p.nextToken()
+	}
+
+	return stmt
+}
+
+func (p *Parser) parseExpression(_ int) ast.Expression {
+	prefix := p.prefixParseFns[p.curToken.Type]
+	if prefix == nil {
+		return nil
+	}
+
+	leftExp := prefix()
+
+	return leftExp
 }
 
 func (p *Parser) curTokenIs(t token.TokenType) bool {

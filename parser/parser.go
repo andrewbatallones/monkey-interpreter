@@ -2,6 +2,7 @@ package parser
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/andrewbatallones/monkey_interpreter/ast"
 	"github.com/andrewbatallones/monkey_interpreter/lexer"
@@ -165,6 +166,25 @@ func (p *Parser) parseExpressionStatement() *ast.ExpresssionStatement {
 	}
 
 	return stmt
+}
+
+// The difference between the value and *reference return value is how they will
+// be used. Essentially, if the receiver needs the pointer, usually return the reference.]
+// Not sure if that's 100% true.
+// More info here: https://go.dev/wiki/CodeReviewComments#receiver-type
+func (p *Parser) parseIntegerLiteral() ast.Expression {
+	lit := &ast.IntegerLiteral{Token: p.curToken}
+
+	value, err := strconv.ParseInt(p.curToken.Literal, 0, 64)
+	if err != nil {
+		msg := fmt.Sprintf("could not parse %q as integer", p.curToken.Literal)
+		p.errors = append(p.errors, msg)
+		return nil
+	}
+
+	lit.Value = value
+
+	return lit
 }
 
 func (p *Parser) curTokenIs(t token.TokenType) bool {

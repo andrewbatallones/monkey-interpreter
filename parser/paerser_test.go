@@ -164,8 +164,8 @@ func TestIntegerLiteralExpression(t *testing.T) {
 	if !ok {
 		t.Fatalf("exp not *ast.IntegerLiteral. got =%T", stmt.Expression)
 	}
-	if ident.Value != "5" {
-		t.Errorf("ident.Value not %s. got=%s", "5", ident.Value)
+	if ident.Value != 5 {
+		t.Errorf("ident.Value not %d. got=%d", 5, ident.Value)
 	}
 	if ident.TokenLiteral() != "5" {
 		t.Errorf("ident.TokenLiteral not %s. got=%s", "5", ident.TokenLiteral())

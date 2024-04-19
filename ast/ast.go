@@ -131,7 +131,7 @@ type PrefixExpression struct {
 	Right    Expression
 }
 
-func (pe *PrefixExpression) statementNode()       {}
+func (pe *PrefixExpression) expressionNode()       {}
 func (pe *PrefixExpression) TokenLiteral() string { return pe.Token.Literal }
 
 func (pe *PrefixExpression) String() string {

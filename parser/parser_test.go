@@ -270,6 +270,7 @@ func TestParsingInfixExpressions(t *testing.T) {
 			t.Fatalf("exp is not ast.InfixExpression. got=%T", stmt.Expression)
 		}
 
+		// Want to test both left, operator, and right
 		if !testIntegerLiteral(t, exp.Lft, tt.leftValue) {
 			return
 		}

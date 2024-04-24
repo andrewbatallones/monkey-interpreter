@@ -271,7 +271,7 @@ func TestParsingInfixExpressions(t *testing.T) {
 		}
 
 		// Want to test both left, operator, and right
-		if !testIntegerLiteral(t, exp.Lft, tt.leftValue) {
+		if !testIntegerLiteral(t, exp.Left, tt.leftValue) {
 			return
 		}
 

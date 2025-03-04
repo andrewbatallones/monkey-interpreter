@@ -1,3 +1,3 @@
 module github.com/andrewbatallones/monkey_interpreter
 
-go 1.20
+go 1.24

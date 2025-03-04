@@ -23,6 +23,11 @@ func Start(in io.Reader, out io.Writer) {
 		}
 
 		line := scanner.Text()
+
+		if line == "exit" {
+			break
+		}
+
 		l := lexer.New(line)
 		p := parser.New(l)
 
@@ -36,4 +41,6 @@ func Start(in io.Reader, out io.Writer) {
 		// 	fmt.Fprintf(out, "%+v\n", tok)
 		// }
 	}
+
+	fmt.Println("Goodbye")
 }
